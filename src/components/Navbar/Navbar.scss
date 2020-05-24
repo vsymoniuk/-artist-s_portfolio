@@ -1,0 +1,51 @@
+.Navbar {
+    position: fixed;
+    top: 0;
+    background: white;
+    box-shadow: rgba(0,0,0,.2) 0 3px 15px;
+
+  width: 100%;
+  padding: 1em;
+  font-size: 140%;
+  left: 0;
+  transition: opacity .2 sease-in-out;
+  text-align: center;
+
+  z-index: 1;
+
+  &__logo {
+    // font-weight: 600;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    width: 150px;
+    height: 55px;
+    // font-size: inherit;
+  }
+
+  &__nav {
+      a {
+        display: inline-block;
+        outline: none;
+        text-decoration: none;
+        opacity: .5;
+        padding: 0 .5em;
+        color: black;
+        transition: opacity 1s;
+        &:hover {
+            opacity: 1;
+        } 
+      }
+  }
+}
+
+@media (min-width: 580px) {
+    .Navbar {
+      text-align: left;
+      &__nav {
+        margin-top: 1em;
+          margin-right: 1.5em;
+          float: right;
+      }
+    }
+  }

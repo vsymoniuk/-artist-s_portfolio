@@ -1,0 +1,21 @@
+.Layout {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    main {
+        display: flex;
+        // height: fit-content;
+        flex-direction: column;
+        margin-top: 8rem;
+        flex-grow: 1;
+    }
+}
+
+@media (max-width: 580px) {
+    .Layout {
+        main {
+            margin-top: 12rem;
+        }
+    }
+  }
