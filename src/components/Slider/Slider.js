@@ -8,9 +8,7 @@ import "./Slider.scss";
 
 export class Slider extends React.Component {
   state = {
-    line: null,
-    slides: null,
-    sliderWidth: 0,
+    photos: [photo1,photo2,photo3,photo4,photo5],
     widthArray: [],
     offset: 0,
     step: 0,
@@ -26,8 +24,6 @@ export class Slider extends React.Component {
     let lineWidth = 0;
     let offset = 0;
     let step = 0;
-
-    console.log( slides[0].getAttribute('width') );
     
     for (let i = 0; i < slides.length; i++) {
       //creates array with slides width
@@ -39,9 +35,6 @@ export class Slider extends React.Component {
     line.style.width = lineWidth + "px";
 
     this.setState({
-      line,
-      slides,
-      sliderWidth,
       widthArray,
       offset,
       step,
@@ -66,7 +59,7 @@ export class Slider extends React.Component {
           style={{ left: `-${this.state.offset}px` }}
           className="Slider__line"
         >
-          <img className="slide" src={photo1} alt="" />
+          <img id="sos" className="slide" src={photo1} alt="" />
           <img className="slide" src={photo2} alt="" />
           <img className="slide" src={photo3} alt="" />
           <img className="slide" src={photo4} alt="" />

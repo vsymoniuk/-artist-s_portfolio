@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import './Layout.scss'
 import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
 
 export default class Layout extends Component {
   render() {
@@ -8,7 +9,7 @@ export default class Layout extends Component {
       <div className='Layout'>
         <Navbar/>
         <main>{this.props.children}</main>
-        footer
+        <Footer/>
       </div>
     );
   }
