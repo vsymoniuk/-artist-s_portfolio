@@ -22,13 +22,13 @@
 
     &__line {
         position: relative;
-        height:850px ;
         overflow: hidden;
         left: 0;
         transition: all ease 1s;
         .slide {
             float: left;
-            height: 850px;
+            object-fit: contain;
+            width: 570px;
         }
     }
 }
@@ -41,9 +41,8 @@
             font-size: 50px;
         }
         &__line {
-            height:450px ;
             .slide {
-                height: 450px;
+                width: 285px;
             }
         }
     }

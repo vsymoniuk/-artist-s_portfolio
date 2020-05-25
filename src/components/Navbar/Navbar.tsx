@@ -9,11 +9,11 @@ const Navbar = () => {
       <NavLink to="/">
         <img src={logo} alt="logo" className="Navbar__logo" />
       </NavLink>
-      <nav className="Navbar__nav">
+      <div className="Navbar__nav">
         <NavLink className="link" to="/about">About</NavLink>
         <NavLink className="link" to="/gallery">Gallery</NavLink>
         <NavLink className="link" to="/contact">Contact</NavLink>
-      </nav>
+      </div>
     </header>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import photo1 from "./photos/1.jpg";
 import photo2 from "./photos/2.jpg";
 import photo3 from "./photos/3.jpg";
@@ -6,66 +6,112 @@ import photo4 from "./photos/4.jpg";
 import photo5 from "./photos/5.jpg";
 import "./Slider.scss";
 
-export class Slider extends React.Component {
-  state = {
-    photos: [photo1,photo2,photo3,photo4,photo5],
+export const Slider = () => {
+  const [state,setState] = useState( {
+    photos: [photo1, photo2, photo3, photo4, photo5],
+    sliderWidth: 0,
     widthArray: [],
+    lineWidth: 0,
     offset: 0,
     step: 0,
-  };
+  });
 
-  componentDidMount() {
+  useEffect(() => {
     const line = document.querySelector(".Slider__line");
     const slides = document.querySelectorAll(".slide");
     const sliderWidth = document
       .querySelector(".Slider")
-      ?.getBoundingClientRect().width;
-    let widthArray = [0];
+      .getBoundingClientRect().width;
+  
+    let widthArray = [];
     let lineWidth = 0;
-    let offset = 0;
-    let step = 0;
-    
+  
     for (let i = 0; i < slides.length; i++) {
       //creates array with slides width
-      const currElemWidth = 570;
+      const currElemWidth = sliderWidth > 580 ? 570 : 285;
       widthArray.push(currElemWidth);
       lineWidth += currElemWidth;
     }
-
+  
     line.style.width = lineWidth + "px";
-
-    this.setState({
+  
+    setState(prev => ({
+      ...prev,
       widthArray,
-      offset,
-      step,
-    });
-  }
+      lineWidth,
+      sliderWidth,
+    }));
+  }, []);
 
-  clickHandler = () => {
-    const newOffset = this.state.offset + this.state.widthArray[this.state.step];
-    this.setState({
+  const clickHandler = (direction) => {
+    const stepOffset = direction === "right" ? 1 : -1;
+
+    const { lineWidth, offset, widthArray, step, sliderWidth } = state;
+    let nextStep = step + stepOffset;
+
+    const restRight = lineWidth - (offset + sliderWidth + stepOffset * widthArray[step]);
+    const restLeft = offset + stepOffset* widthArray[step]
+    let newOffset = 0;
+    
+    if (restRight >= 0 && restLeft>=0) {
+      newOffset = offset + widthArray[nextStep] * stepOffset;
+    } else if (restRight < 0) {
+      newOffset = lineWidth - sliderWidth;
+    } else if (restLeft < 0) {
+      newOffset = 0;
+    }
+    
+    if (nextStep >= widthArray.length ) {
+      newOffset = 0;
+      nextStep = 0;
+    }
+    if (nextStep <= -1) {
+      newOffset = lineWidth - sliderWidth;
+      nextStep = 9;
+    }
+
+    setState(prev => ({
+      ...prev,
       offset: newOffset,
-      step: this.state.step + 1,
-    });
-    console.log(this.state);
+      step: nextStep,
+    }));
+  };
+  
+  const renderPhoto = () => {
+    return  state.photos.map((photo, index) => (
+      <img
+        className="slide"
+        src={photo}
+        alt={`${index}`}
+        key={`${index}${Date.now()}`}
+      />
+    ));
   };
 
-  render() {
+  
     return (
-      <div onClick={this.clickHandler} className="Slider">
-        <span className="material-icons Slider__arrow arrow-left">keyboard_arrow_left</span>
-        <span className="material-icons Slider__arrow arrow-right">keyboard_arrow_right</span>
+      <div className="Slider">
+        <span
+          onClick={clickHandler.bind(null, "left")}
+          className="material-icons Slider__arrow arrow-left"
+        >
+          keyboard_arrow_left
+        </span>
+        <span
+          onClick={clickHandler.bind(null, "right")}
+          className="material-icons Slider__arrow arrow-right"
+        >
+          keyboard_arrow_right
+        </span>
+
         <div
-          style={{ left: `-${this.state.offset}px` }}
+          style={{ left: `-${state.offset}px` }}
           className="Slider__line"
         >
-          <img id="sos" className="slide" src={photo1} alt="" />
-          <img className="slide" src={photo2} alt="" />
-          <img className="slide" src={photo3} alt="" />
-          <img className="slide" src={photo4} alt="" />
-          <img className="slide" src={photo5} alt="" />
+          {renderPhoto()}
+          {renderPhoto()}
         </div>
       </div>
     );
-  }
+
 }
