@@ -13,7 +13,23 @@ code {
     monospace;
 }
 
+.py2 {
+  padding: 2rem 0;
+}
+
+.py1 {
+  padding: 1rem 0;
+}
+
+.py-auto {
+  padding: auto 0;
+}
+
+.pt1 {
+  padding-top: 1rem;
+}
+
 @font-face {
   font-family: "Courier New";
   src: url("./fonts/7170.ttf");
-  }
+}

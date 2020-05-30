@@ -1,0 +1,62 @@
+.Contact {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 20px;
+  &__Calendly {
+    width: 3fr;
+    grid-column: 1/4;
+  }
+  &__Data {
+    width: 2fr;
+    grid-column: 4 / 6;
+    margin: 66px 0;
+  }
+  .Map {
+    width: 600px;
+    height: 600px;
+  }
+}
+
+@media (max-width: 1600px) {
+  .Contact {
+    &__Data {
+      .Map {
+        width: 350px;
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .Contact {
+    margin: 0 auto 20px auto;
+    display: block;
+    &__Data {
+      margin: 0;
+      .Map {
+        width: 650px;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .Contact {
+    &__Data {
+      .Map {
+        width: 400px;
+        height: 250px;
+      }
+    }
+  }
+}
+
+@media (max-width: 440px) {
+  .Contact {
+    &__Data {
+      .Map {
+        width: 300px;
+      }
+    }
+  }
+}

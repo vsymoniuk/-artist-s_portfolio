@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Layout from "./hoc/Layout/Layout";
 import About from "./containers/About/About";
 import Gallery from "./containers/Gallery/Gallery";
-import Contact from "./containers/Contact/Contact";
+import { Contact } from "./containers/Contact/Contact";
 import { Slider } from "./components/Slider/Slider";
 
 class App extends Component {

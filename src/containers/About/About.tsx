@@ -1,12 +1,33 @@
-import React from "react";
-import image from './images/1.jpg'
+import React, { useEffect, Fragment } from "react";
+import image from "./images/1.jpg";
+import M from "materialize-css";
 
 export default function About() {
+  // const sas = () => console.log(Date.now());
+
+  useEffect(() => {
+    const elems = document.querySelectorAll(".parallax");
+    const instances = M.Parallax.init(elems);
+    return () => {
+      instances.forEach((parallax) => parallax.destroy());
+    };
+  }, []);
+
   return (
-    <div className="parallax-container">
-      <div className="parallax">
-        <img src={image} />
+    <Fragment>
+      <div style={{height: 350}} className="parallax-container">
+        <div style={{zIndex:1}}  className="parallax">
+          <img className="parallax-img" src={image} alt="Kate on the work" />
+        </div>
       </div>
-    </div>
+      <p className="container py2">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium, impedit? Dolorum nihil, laborum dolor sunt doloremque quod recusandae commodi tenetur officiis maxime, eum quibusdam. Minima quasi aspernatur ipsum delectus nobis!
+      </p>
+      <div className="parallax-container">
+        <div style={{zIndex:1}} className="parallax">
+          <img className="parallax-img" src={image} alt="Kate on the work" />
+        </div>
+      </div>
+    </Fragment>
   );
 }

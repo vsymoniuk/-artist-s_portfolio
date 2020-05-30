@@ -5,19 +5,14 @@
 
     main {
         display: flex;
-        // height: fit-content;
-        margin-bottom: 250px;
+        margin-bottom: 144px;
         flex-direction: column;
         margin-top: 8rem;
         flex-grow: 1;
-    }
-}
-
-@media (max-width: 890px) {
-    .Layout {
-        main {
-            margin-bottom: 308px;
-        }
+        
+        background-color: #fff;
+        height: fit-content;
+        z-index: 1;
     }
 }
 
@@ -25,7 +20,7 @@
     .Layout {
         main {
             margin-top: 12rem;
-            margin-bottom: 231px;
+            // margin-bottom: 231px;
         }
     }
   }
