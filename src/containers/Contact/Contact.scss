@@ -10,17 +10,17 @@
     width: 2fr;
     grid-column: 4 / 6;
     margin: 66px 0;
-  }
-  .Map {
-    width: 600px;
-    height: 600px;
+    &__Map {
+      width: 600px;
+      height: 600px;
+    }
   }
 }
 
 @media (max-width: 1600px) {
   .Contact {
     &__Data {
-      .Map {
+      &__Map {
         width: 350px;
       }
     }
@@ -33,7 +33,7 @@
     display: block;
     &__Data {
       margin: 0;
-      .Map {
+      &__Map {
         width: 650px;
       }
     }
@@ -43,7 +43,8 @@
 @media (max-width: 700px) {
   .Contact {
     &__Data {
-      .Map {
+      // margin-top: -200px;
+      &__Map {
         width: 400px;
         height: 250px;
       }
@@ -54,7 +55,7 @@
 @media (max-width: 440px) {
   .Contact {
     &__Data {
-      .Map {
+      &__Map {
         width: 300px;
       }
     }

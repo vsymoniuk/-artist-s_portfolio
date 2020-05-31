@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import photo1 from "./photos/1.jpg";
-import photo2 from "./photos/2.jpg";
-import photo3 from "./photos/3.jpg";
-import photo4 from "./photos/4.jpg";
-import photo5 from "./photos/5.jpg";
 import "./Slider.scss";
 
 export const Slider = () => {
-  const [state,setState] = useState( {
-    photos: [photo1, photo2, photo3, photo4, photo5],
+  const [state, setState] = useState({
+    photos: [
+      "/pictures/1.jpg",
+      "/pictures/2.jpg",
+      "/pictures/3.jpg",
+      "/pictures/4.jpg",
+      "/pictures/5.jpg",
+    ],
     sliderWidth: 0,
     widthArray: [],
     lineWidth: 0,
@@ -22,20 +23,20 @@ export const Slider = () => {
     const sliderWidth = document
       .querySelector(".Slider")
       .getBoundingClientRect().width;
-  
+
     let widthArray = [];
     let lineWidth = 0;
-  
+
     for (let i = 0; i < slides.length; i++) {
       //creates array with slides width
       const currElemWidth = sliderWidth > 580 ? 570 : 285;
       widthArray.push(currElemWidth);
       lineWidth += currElemWidth;
     }
-  
+
     line.style.width = lineWidth + "px";
-  
-    setState(prev => ({
+
+    setState((prev) => ({
       ...prev,
       widthArray,
       lineWidth,
@@ -49,19 +50,20 @@ export const Slider = () => {
     const { lineWidth, offset, widthArray, step, sliderWidth } = state;
     let nextStep = step + stepOffset;
 
-    const restRight = lineWidth - (offset + sliderWidth + stepOffset * widthArray[step]);
-    const restLeft = offset + stepOffset* widthArray[step]
+    const restRight =
+      lineWidth - (offset + sliderWidth + stepOffset * widthArray[step]);
+    const restLeft = offset + stepOffset * widthArray[step];
     let newOffset = 0;
-    
-    if (restRight >= 0 && restLeft>=0) {
+
+    if (restRight >= 0 && restLeft >= 0) {
       newOffset = offset + widthArray[nextStep] * stepOffset;
     } else if (restRight < 0) {
       newOffset = lineWidth - sliderWidth;
     } else if (restLeft < 0) {
       newOffset = 0;
     }
-    
-    if (nextStep >= widthArray.length ) {
+
+    if (nextStep >= widthArray.length) {
       newOffset = 0;
       nextStep = 0;
     }
@@ -70,15 +72,15 @@ export const Slider = () => {
       nextStep = 9;
     }
 
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       offset: newOffset,
       step: nextStep,
     }));
   };
-  
+
   const renderPhoto = () => {
-    return  state.photos.map((photo, index) => (
+    return state.photos.map((photo, index) => (
       <img
         className="slide"
         src={photo}
@@ -88,30 +90,25 @@ export const Slider = () => {
     ));
   };
 
-  
-    return (
-      <div className="Slider">
-        <span
-          onClick={clickHandler.bind(null, "left")}
-          className="material-icons Slider__arrow arrow-left"
-        >
-          keyboard_arrow_left
-        </span>
-        <span
-          onClick={clickHandler.bind(null, "right")}
-          className="material-icons Slider__arrow arrow-right"
-        >
-          keyboard_arrow_right
-        </span>
+  return (
+    <div className="Slider">
+      <span
+        onClick={clickHandler.bind(null, "left")}
+        className="material-icons Slider__arrow arrow-left"
+      >
+        keyboard_arrow_left
+      </span>
+      <span
+        onClick={clickHandler.bind(null, "right")}
+        className="material-icons Slider__arrow arrow-right"
+      >
+        keyboard_arrow_right
+      </span>
 
-        <div
-          style={{ left: `-${state.offset}px` }}
-          className="Slider__line"
-        >
-          {renderPhoto()}
-          {renderPhoto()}
-        </div>
+      <div style={{ left: `-${state.offset}px` }} className="Slider__line">
+        {renderPhoto()}
+        {renderPhoto()}
       </div>
-    );
-
-}
+    </div>
+  );
+};

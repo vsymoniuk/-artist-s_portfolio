@@ -20,6 +20,7 @@ export const Calendly = ({ dataUrl }) => {
       className="calendly-inline-widget"
       data-url={dataUrl}
       style={{
+        // position:'relative',
         minWidth: 320,
         height: 943,
         overflow: "hidden",

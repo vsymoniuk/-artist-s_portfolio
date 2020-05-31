@@ -1,9 +1,8 @@
 import React, { useEffect, Fragment } from "react";
-import image from "./images/1.jpg";
 import M from "materialize-css";
 
 export default function About() {
-  // const sas = () => console.log(Date.now());
+  const image = '/pictures/1.jpg'
 
   useEffect(() => {
     const elems = document.querySelectorAll(".parallax");
