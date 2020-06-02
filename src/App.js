@@ -5,12 +5,13 @@ import About from "./containers/About/About";
 import Gallery from "./containers/Gallery/Gallery";
 import { Contact } from "./containers/Contact/Contact";
 import { Slider } from "./components/Slider/Slider";
+import Auth from "./containers/Auth/Auth";
 
 class App extends Component {
   render() {
     let routes = (
       <Switch>
-        {/* <Route path="/auth" component={Auth} /> */}
+        <Route path="/auth" component={Auth} />
         <Route path="/about" component={About} />
         <Route path="/gallery" component={Gallery} />
         <Route path="/contact" component={Contact} />

@@ -69,7 +69,7 @@ export const Slider = () => {
     }
     if (nextStep <= -1) {
       newOffset = lineWidth - sliderWidth;
-      nextStep = 9;
+      nextStep = 8;
     }
 
     setState((prev) => ({
