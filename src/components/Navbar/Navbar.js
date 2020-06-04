@@ -3,16 +3,29 @@ import logo from "./logo.png";
 import "./Navbar.scss";
 import { NavLink } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  const navlinks = [
+    { to: "/about", name: "About" },
+    { to: "/gallery", name: "Gallery" },
+    { to: "/contact", name: "Contact" },
+  ];
+
+  if (props.isAuthenticated) {
+    navlinks.push({ to: "/create", name: "Create" });
+    navlinks.push({ to: "/logout", name: "Logout" });
+  }
+
   return (
     <header className="Navbar">
       <NavLink to="/">
         <img src={logo} alt="logo" className="Navbar__logo" />
       </NavLink>
       <div className="Navbar__nav">
-        <NavLink className="link" to="/about">About</NavLink>
-        <NavLink className="link" to="/gallery">Gallery</NavLink>
-        <NavLink className="link" to="/contact">Contact</NavLink>
+        {navlinks.map((item) => (
+          <NavLink key={item.to + Date.now()} className="link" to={item.to}>
+            {item.name}
+          </NavLink>
+        ))}
       </div>
     </header>
   );

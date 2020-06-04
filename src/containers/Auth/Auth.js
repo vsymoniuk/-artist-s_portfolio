@@ -1,27 +1,13 @@
 import React from "react";
-import axios from "axios";
 import "./Auth.scss";
-import { Toast } from "../../shared/toast";
+import { connect } from "react-redux";
+import { login } from "../../store/actions/auth";
 
-const Auth = () => {
-  const loginHandler = async () => {
+const Auth = (props) => {
+  const loginHandler = () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-    const authData = {
-      email,
-      password,
-      returnSecureToken: true,
-    };  
-    try {
-      const response = await axios.post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBVWQ86fzH4PO-hnm58SeTCDb4-_xAeoyQ",
-        authData
-      );
-      console.log(response);
-      Toast("Login succes");
-    } catch (e) {
-      Toast("Invalid input data");
-    }
+    props.login(email, password);
   };
 
   return (
@@ -40,13 +26,20 @@ const Auth = () => {
         <label htmlFor="password">Password</label>
       </div>
 
-      <div className="input-field col s12">
-        <button onClick={loginHandler}  className="btn black waves-effect waves-light col s12">
-          Login
-        </button>
-      </div>
+      <button
+        onClick={loginHandler}
+        className="btn black waves-effect waves-light col s12"
+      >
+        Login
+      </button>
     </div>
   );
 };
 
-export default Auth;
+function mapDispatchToProps(dispatch) {
+  return {
+    login: (email, password) => dispatch(login(email, password)),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Auth);
