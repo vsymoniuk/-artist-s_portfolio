@@ -3,16 +3,19 @@ import { connect } from "react-redux";
 import { fetchPictures } from "../../store/actions/picture";
 import GalleryItem from "../../components/GalleryItem/GalleryItem";
 import "./Gallery.scss";
+import GalleryFilters from "../../components/GalleryFilters/GalleryFilters";
 
 const Gallery = (props) => {
   useEffect(() => {
     props.fetchPictures();
-  },[]);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Fragment>
+      <GalleryFilters />
       {props.loading ? (
-        <img src="/pictures/loader.gif" alt="loader"/>
+        <img src="/pictures/loader.gif" alt="loader" />
       ) : (
         <div className="Gallery">
           {props.pictures.map((picture) => (
@@ -26,7 +29,7 @@ const Gallery = (props) => {
 
 function mapStateToProps(state) {
   return {
-    pictures: state.picture.pictures,
+    pictures: state.picture.visiblePictures,
     loading: state.picture.loading,
   };
 }

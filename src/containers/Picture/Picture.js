@@ -6,11 +6,11 @@ import "./Picture.scss";
 const Picture = (props) => {
   useEffect(() => {
     props.fetchPictureById(props.match.params.id);
+    // eslint-disable-next-line 
   }, []);
 
   const deleteHandler = () => {
     props.deletePictureById(props.match.params.id)
-    // props.history.push('/gallery')
   }
 
   if (props.loading) {

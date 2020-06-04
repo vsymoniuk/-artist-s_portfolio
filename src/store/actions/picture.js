@@ -5,8 +5,49 @@ import {
   PICTURES_FETCH_SUCCESS,
   PICTURE_FETCH_ERROR,
   PICTURE_FETCH_SUCCESS,
+  PICTURES_SORT_UPDATE,
+  PICTURES_FILTER_UPDATE
 } from "./actionTypes";
 
+//=========FILTER_SORTING============\\
+export function sortByYear(type) {
+  return (dispatch, getState) => {
+    const { pictures } = getState().picture;
+
+    const newPictures = pictures.sort((a, b) => {
+      if (type === "asc") return a.year - b.year;
+      return b.year - a.year;
+    });
+
+    dispatch(updateSortPictures([...newPictures]));
+  };
+}
+
+export function filterByTechnics(filter) {
+  return (dispatch, getState) => {
+    const { pictures } = getState().picture;
+
+    const newPictures = pictures.filter(pic => pic.technics.includes(filter))
+
+    dispatch(updateFilterPictures([...newPictures]));
+  };
+}
+
+export function updateFilterPictures(pictures) {
+  return {
+    type: PICTURES_FILTER_UPDATE,
+    pictures,
+  };
+}
+
+export function updateSortPictures(pictures) {
+  return {
+    type: PICTURES_SORT_UPDATE,
+    pictures,
+  };
+}
+
+//=========DB_INTERACTION============\\
 export function createPicture(picture) {
   return async (dispatch) => {
     try {
@@ -61,7 +102,7 @@ export function deletePictureById(id) {
 
     try {
       await axios.put(`pictures.json`, newPictures);
-      Toast('Picture was successfully deleted')
+      Toast("Picture was successfully deleted");
     } catch (e) {
       dispatch(fetchPicturesError(e));
     }

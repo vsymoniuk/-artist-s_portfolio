@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import M from "materialize-css";
+import { connect } from "react-redux";
 import "./CreatePicture.scss";
 import { Toast } from "../../shared/toast";
-import axios from "../../axios/axios";
 import { createPicture } from "../../store/actions/picture";
-import { connect } from "react-redux";
 
 const CreatePicture = (props) => {
   useEffect(() => {
@@ -44,7 +43,6 @@ const CreatePicture = (props) => {
 
     if(isValid) {
         props.createPicture(picture)
-        // props.history.push('/gallery')
     } else {
         Toast('Please, fill in all the fields')
     }
