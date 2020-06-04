@@ -3,6 +3,8 @@ import M from "materialize-css";
 import "./CreatePicture.scss";
 import { Toast } from "../../shared/toast";
 import axios from "../../axios/axios";
+import { createPicture } from "../../store/actions/picture";
+import { connect } from "react-redux";
 
 const CreatePicture = (props) => {
   useEffect(() => {
@@ -41,10 +43,8 @@ const CreatePicture = (props) => {
     );
 
     if(isValid) {
-        axios.post('pictures.json', picture).then(() => {
-            Toast("The picture was succesfully added")
-            props.history.push('/gallery')
-        })
+        props.createPicture(picture)
+        // props.history.push('/gallery')
     } else {
         Toast('Please, fill in all the fields')
     }
@@ -93,4 +93,12 @@ const CreatePicture = (props) => {
   );
 };
 
-export default CreatePicture;
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createPicture: (picture) => dispatch(createPicture(picture))
+  };
+}
+
+
+export default connect(null, mapDispatchToProps)(CreatePicture);

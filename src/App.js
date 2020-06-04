@@ -10,43 +10,43 @@ import { connect } from "react-redux";
 import Logout from "./components/Logout/Logout";
 import CreatePicture from "./containers/CreatePicture/CreatePicture";
 import { autoLogin } from "./store/actions/auth";
+import Picture from "./containers/Picture/Picture";
 
 class App extends Component {
   componentDidMount() {
-    this.props.autoLogin()
+    this.props.autoLogin();
   }
 
   render() {
-    let routes = (
-      <Switch>
-        <Route path="/auth" component={Auth} />
-        <Route path="/about" component={About} />
-        <Route path="/gallery" component={Gallery} />
-        <Route path="/contact" component={Contact} />
-        <Route path="/" exact component={Slider} />
-        <Redirect to="/" />
-      </Switch>
-    );
+    const routes = [
+      { path: "/about", component: About },
+      { path: "/gallery", component: Gallery },
+      { path: "/picture/:id", component: Picture },
+      { path: "/contact", component: Contact },
+    ];
 
     if (this.props.isAuthenticated) {
-      console.log('authen');
-      
-      routes = (
+      routes.push({ path: "/logout", component: Logout });
+      routes.push({ path: "/create", component: CreatePicture });
+    } else {
+      routes.push({ path: "/auth", component: Auth });
+    }
+
+    return (
+      <Layout>
         <Switch>
-          <Route path="/about" component={About} />
-          <Route path="/gallery" component={Gallery} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/logout" component={Logout} />
-          <Route path="/create" component={CreatePicture} />
+          {routes.map((route) => (
+            <Route
+              key={route.path + Date.now()}
+              path={route.path}
+              component={route.component}
+            />
+          ))}
           <Route path="/" exact component={Slider} />
           <Redirect to="/" />
         </Switch>
-      );
-    } else {
-      console.log('outhen');
-    }
-
-    return <Layout>{routes}</Layout>;
+      </Layout>
+    );
   }
 }
 
@@ -58,8 +58,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    autoLogin: () => dispatch(autoLogin())
-  }
+    autoLogin: () => dispatch(autoLogin()),
+  };
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
